@@ -10,7 +10,7 @@ module.exports      = {
             password: req.body.password
         }
         User.create(objUser)
-        .then( response => res.status(201).json({response}))
+        .then( response => res.status(201).json(response))
         .catch( err => {
             res.status(500).json(err)
         })
@@ -27,9 +27,10 @@ module.exports      = {
                     err:false,
                     name: user.name,
                     token:hash.jwtencode({
-                        id: user._id,
+                        _id: user._id,
                         name: user.name,
-                        email: user.email
+                        email: user.email,
+                        role: user.role
                     })
                 })
             } else {
@@ -45,6 +46,14 @@ module.exports      = {
         User.findById({_id: req.decoded.id})
         .then( response => res.status(200).json(response))
         .catch( err => res.status(500).json(err))
+    }, 
+
+    getAll: (req, res) => {
+        User.find({}, function(err, result){
+            if(!err) {
+                res.status(200).json(result)
+            }
+        })
     }
 }
 // By Asrul Harahap - 2018

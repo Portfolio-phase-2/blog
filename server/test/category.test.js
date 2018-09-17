@@ -19,11 +19,14 @@ describe('Category CRUD Testing', function() {
 
     beforeEach(function(done) {
         Category.create(newCategory, function(err, result){
+            uid = result._id
+            console.log(uid, 'before each')
             done()
         })
     })
 
     afterEach(function(done) {
+        console.log(uid, 'after each')
         Category.deleteOne({_id:uid}, function(err, result){
             done()
         })
@@ -35,10 +38,12 @@ describe('Category CRUD Testing', function() {
         .send(newCategory)
         .set('token', token)
         .end(function(err, res) {
-            uid = res.body._id
             expect(res).to.have.status(201)
             expect(res.body).to.be.an('object')
-            done()
+            console.log(res.body)
+            Category.deleteOne({_id: res.body._id}, function(err, result) {
+                done()
+            })
         })
     })
 
@@ -48,6 +53,16 @@ describe('Category CRUD Testing', function() {
         .end(function(err, res) {
             expect(res).to.have.status(200)
             expect(res.body).to.be.a('array')
+            done()
+        })
+    })
+
+    it('/GET categories id', function(done) {
+        chai.request(app)
+        .get('/categories/'+uid)
+        .end(function(err, res) {
+            expect(res).to.have.status(200)
+            expect(res.body).to.be.an('object')
             done()
         })
     })

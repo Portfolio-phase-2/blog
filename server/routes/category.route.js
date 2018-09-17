@@ -5,6 +5,8 @@ const isLogin = require('../middlewares/isLogin')
 const isAdmin = require('../middlewares/isAdmin')
 
 router.post('/', isLogin, isAdmin, createOne)
+router.get('/', getAll)
+router.get('/:id', getById)
 
 module.exports = router
 // By Asrul Harahap - 2018

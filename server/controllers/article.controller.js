@@ -33,7 +33,7 @@ module.exports = {
     },
 
     putById: (req, res) => {
-        Article.findById({_id:req.params.id})
+        Article.findById({_id:req.params.id, owner: req.decoded._id})
         .populate('owner')
         .populate('category')
         .populate('comments')
@@ -51,7 +51,7 @@ module.exports = {
     },
 
     deleteById: (req, res) => {
-        Article.deleteOne({_id: req.params.id})
+        Article.deleteOne({_id: req.params.id, owner: req.decoded._id})
         .then( response => res.status(200).json(response))
         .catch( err => res.status(500).json(err))
     }

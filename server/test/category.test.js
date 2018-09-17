@@ -20,13 +20,11 @@ describe('Category CRUD Testing', function() {
     beforeEach(function(done) {
         Category.create(newCategory, function(err, result){
             uid = result._id
-            console.log(uid, 'before each')
             done()
         })
     })
 
     afterEach(function(done) {
-        console.log(uid, 'after each')
         Category.deleteOne({_id:uid}, function(err, result){
             done()
         })
@@ -40,7 +38,6 @@ describe('Category CRUD Testing', function() {
         .end(function(err, res) {
             expect(res).to.have.status(201)
             expect(res.body).to.be.an('object')
-            console.log(res.body)
             Category.deleteOne({_id: res.body._id}, function(err, result) {
                 done()
             })

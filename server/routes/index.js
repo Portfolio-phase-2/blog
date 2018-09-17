@@ -10,6 +10,7 @@ const comments = require('./comment.route')
 
 router.use('/users', users)
 router.use('/categories', categories)
+router.use('/articles', articles)
 // router.use('/articles', articles)
 // router.use('/comments', comments)
 

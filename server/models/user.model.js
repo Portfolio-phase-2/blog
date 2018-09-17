@@ -16,10 +16,10 @@ const userSchema = new Schema({
         validate: {
             validator: function(v) {
                 if(v.length <= 6) return false
-                return true
             }
         }
     },
+    articles: [{ type: Schema.Types.ObjectId, ref: 'Article' }],
     role: { type: String, default: 'member' },
     deleteAt: { type: Date, default: null},    
 }, { timestamps:true });
@@ -33,9 +33,9 @@ userSchema.post('save', function() {
     const msg = {
         to: this.email,
         from: 'talkasrul@gmail.com',
-        subject: 'Thank For Register',
+        subject: 'Success register',
         text: 'Thanks for register',
-        html: '<strong>Thanks for register</strong>',
+        html: '<p>Thanks for register in <strong>tulisanKu</strong></p>',
     }
     sgMail.send(msg)
 });

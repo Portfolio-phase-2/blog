@@ -11,8 +11,7 @@ const comments = require('./comment.route')
 router.use('/users', users)
 router.use('/categories', categories)
 router.use('/articles', articles)
-// router.use('/articles', articles)
-// router.use('/comments', comments)
+router.use('/comments', comments)
 
 // router.post('/signup', signup)
 // router.post('/signin', signin)
@@ -26,7 +25,7 @@ router.use('/articles', articles)
 //     })
 // })
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   res.send('talkasrulJS')
 })
 

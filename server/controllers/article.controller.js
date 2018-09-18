@@ -9,7 +9,8 @@ module.exports = {
             owner: req.decoded._id,
             category: req.body.category
         }
-        Article.create(newArticle)
+        let article = new Article(newArticle)
+        article.save()
         .then( response => res.status(201).json(response))
         .catch( err => res.status(500).json(err))
     },

@@ -1,7 +1,5 @@
 const express = require('express')
 const router = express.Router()
-// const { signup, signin } = require('../controllers/user.controller') 
-// const upload = require('../helpers/uploadHelper')
 
 const users = require('./user.route')
 const categories = require('./category.route')
@@ -13,20 +11,8 @@ router.use('/categories', categories)
 router.use('/articles', articles)
 router.use('/comments', comments)
 
-// router.post('/signup', signup)
-// router.post('/signin', signin)
-
-// router.post('/upload', upload.multer.single('image'), upload.sendUploadToGCS,
-//            (req, res) => {
-//     res.send({
-//         status: 200,
-//         message: 'Your file is successfully uploaded',
-//         link: req.file.cloudStoragePublicUrl
-//     })
-// })
-
 router.get('/', function(req, res) {
-  res.send('talkasrulJS')
+  res.send('ASRUL HARAHAP - BLOG API')
 })
 
 module.exports = router

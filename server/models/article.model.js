@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const Category = require('./category.model')
+const User = require('./user.model')
 const Schema = mongoose.Schema
 
 const articleSchema = new Schema({ 
@@ -11,27 +13,35 @@ const articleSchema = new Schema({
 }, { timestamps:true })
 
 articleSchema.pre('save', function(next) {
-    this.model('User').updateOne(
-        {_id: req.decoded._id}, 
+    let user = User.updateOne(
         {$push: {articles: this._id}}
     )
-    this.model('category').updateOne(
+    let category = Category.updateOne(
         {_id: this.category}, 
         {$push: {articles: this._id}}
     )
-    next()
+
+    Promise.all([user, category])
+    .then(response => {
+        next()
+    })
+    .catch(err => console.log(err))
 })
 
 articleSchema.pre('remove', function(next) {
-    this.model('User').updateOne(
-        {_id: req.decoded._id}, 
+    let user = User.updateOne(
         {$pull: {articles: this._id}}
     )
-    this.model('category').updateOne(
+    let category = Category.updateOne(
         {_id: this.category}, 
         {$pull: {articles: this._id}}
     )
-    next()
+
+    Promise.all([user, category])
+    .then(response => {
+        next()
+    })
+    .catch(err => console.log(err))
 })
 
 const Article = mongoose.model('Article', articleSchema)

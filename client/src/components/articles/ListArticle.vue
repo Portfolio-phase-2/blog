@@ -1,8 +1,12 @@
 <template>
-    <div class="card mb-3" >
+    <div class="mb-3" >
+      <div class="card mb-3" v-for="(article, i) in articles" :key="i">
         <div class="card-body">
-            ini
+          <h5><router-link :to="{ name: 'articledetail', params: { id: article._id }}">{{article.title}}</router-link></h5>
+          <hr>
+          <div v-html="article.description"></div>
         </div>
+      </div>
     </div>
 </template>
 

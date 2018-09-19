@@ -43,8 +43,16 @@ module.exports      = {
     },
 
     getOne: (req, res) => {
-        User.findById({_id: req.decoded.id})
-        .then( response => res.status(200).json(response))
+        User.findById({_id: req.decoded._id})
+        .then( response => {
+            let user = {
+                name: response.name,
+                _id: response._id,
+                email: response.email,
+                articles: response.articles
+            }
+            res.status(200).json(user)
+        })
         .catch( err => res.status(500).json(err))
     }, 
 

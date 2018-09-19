@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Article = require('./article.model')
 const Schema = mongoose.Schema
 
 const commentSchema = new Schema({ 
@@ -9,19 +10,25 @@ const commentSchema = new Schema({
 }, { timestamps:true })
 
 commentSchema.pre('save', function(next) {
-    this.model('Article').updateOne(
+    Article.updateOne(
         {_id: this.article}, 
-        {$push: {comments: this._id}}
-    )
-    next()
+        {$push: {comments: this._id}
+    })
+    .then( response => {
+        next()
+    })
+    .catch( err => console.log(err))
 })
 
 commentSchema.pre('remove', function(next) {
-    this.model('Article').updateOne(
+    Article.updateOne(
         {_id: this.article}, 
-        {$pull: {comments: this._id}}
-    )
-    next()
+        {$pull: {comments: this._id}
+    })
+    .then( response => {
+        next()
+    })
+    .catch( err => console.log(err))
 })
 
 const Comment = mongoose.model('Comment', commentSchema)

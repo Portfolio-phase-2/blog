@@ -1,15 +1,14 @@
 <template>
-    <div class="col-md-3 col-lg-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title"
-                v-for="(article, i) in articles"
-                :key="i">
-                <router-link :to="{ name: 'articledetail', params: { id: article._id }}">{{article.title}}</router-link>
-                </h5>
-            </div>
-        </div>
-    </div>
+  <div class="card mb-3">
+      <div class="card-body">
+          <h3>List Articles</h3>
+          <h5 class="card-title"
+          v-for="(article, i) in articles"
+          :key="i">
+          <router-link :to="{ name: 'articledetail', params: { id: article._id }}">{{article.title}}</router-link>
+          </h5>
+      </div>
+  </div>
 </template>
 
 <script>

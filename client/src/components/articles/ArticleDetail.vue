@@ -1,7 +1,10 @@
 <template>
     <div class="card mb-3">
-        <div class="card-body">
+        <div class="card-body mb-3">
             <blockquote class="blockquote">{{article.title}}</blockquote>
+            <div class="card" v-for="com in article.comments" :key="com._id">
+              {{ com.comment}}
+            </div>
         </div>
     </div>
 </template>
@@ -17,22 +20,21 @@ export default {
     }
   },
   created () {
+    this.getArticle()
   },
   methods: {
     getArticle () {
-      console.log('AAA')
       axios({
         url: `${this.$baseUrl}/articles/${this.id}`,
         method: 'get'
       })
         .then(found => {
-          console.log(found.data)
           this.article = found.data
         })
     }
   },
   watch: {
-    id: function () {
+    '$route' (to, from) {
       this.getArticle()
     }
   }

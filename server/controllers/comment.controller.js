@@ -5,10 +5,11 @@ module.exports = {
     createOne: (req, res) => {
         let newComment = {
             comment: req.body.comment,
-            article: req.body.article,
+            article: req.params.article,
             owner: req.decoded._id,
         }
-        Comment.create(newComment)
+        let comment = new Comment(newComment)
+        comment.save()
         .then( response => res.status(201).json(response))
         .catch( err => res.status(500).json(err))
     },

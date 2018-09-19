@@ -26,6 +26,9 @@
             <a class="nav-link" v-if="!status" href="#" data-toggle="modal" data-target="#modalLogin"> Sign In </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" v-if="status" href="#"> {{user.name}} </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" v-if="status" href="#" @click="doLogout"> Sign Out </a>
           </li>
           <li class="nav-item">
@@ -45,7 +48,7 @@
                   <form>
                     <input type="email" v-model="email" placeholder="Email" class="form-control mb-3" required autofocus>
                     <input type="password" v-model="password" class="form-control mb-3" placeholder="Password">
-                    <button type="submit" id="login" @click="doLogin" data-dismiss="modal" class="btn btn-outline-dark btn-block mb-3">Sign In</button>
+                    <button type="submit" @click="doLogin" data-dismiss="modal" class="btn btn-outline-dark btn-block mb-3">Sign In</button>
                   </form>
                 </div>
               </div>
@@ -82,7 +85,7 @@ import axios from 'axios'
 
 export default {
   name: 'navbar',
-  props: ['status'],
+  props: ['status', 'user'],
   data () {
     return {
       name: '',

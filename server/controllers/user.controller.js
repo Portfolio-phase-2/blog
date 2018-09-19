@@ -49,7 +49,8 @@ module.exports      = {
                 name: response.name,
                 _id: response._id,
                 email: response.email,
-                articles: response.articles
+                articles: response.articles,
+                role: response.role
             }
             res.status(200).json(user)
         })

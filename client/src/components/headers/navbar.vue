@@ -13,13 +13,6 @@
           <li class="nav-item">
             <a class="nav-link" href="#">My Articles</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdownId">
-              <a class="dropdown-item" href="#">Action 1</a>
-              <a class="dropdown-item" href="#">Action 2</a>
-            </div>
-          </li>
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
@@ -65,11 +58,11 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    <form action="">
-                      <input type="text" placeholder="Full Name" class="form-control mb-3" required autofocus>
-                      <input type="email" placeholder="Email" class="form-control mb-3" required>
-                      <input type="password" class="form-control mb-3" placeholder="Password">
-                      <button type="submit" data-dismiss="modal" class="btn btn-outline-dark btn-block mb-3">Sign Up</button>
+                    <form>
+                      <input type="text" v-model="name" placeholder="Full Name" class="form-control mb-3" required autofocus>
+                      <input type="email" v-model="email" placeholder="Email" class="form-control mb-3" required>
+                      <input type="password" v-model="password" class="form-control mb-3" placeholder="Password">
+                      <button type="submit" @click="doRegister" data-dismiss="modal" class="btn btn-outline-dark btn-block mb-3">Sign Up</button>
                     </form>
                   </div>
                 </div>
@@ -94,6 +87,21 @@ export default {
     }
   },
   methods: {
+    doRegister () {
+      axios({
+        url: `${this.$baseUrl}/users/signup`,
+        method: 'post',
+        data: {
+          name: this.name,
+          email: this.email,
+          password: this.password
+        }
+      })
+        .then(found => {
+          // ini kasi alert
+        })
+        .catch(err => console.log(err))
+    },
     doLogin (a) {
       if (a.isTrusted) {
         axios({

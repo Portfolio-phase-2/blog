@@ -41,9 +41,20 @@ export default {
     checkLogin () {
       let token = localStorage.getItem('token')
       if (token) {
-        this.isLogin = true
+        axios({
+          url: `${this.$baseUrl}/users/one`,
+          method: 'get',
+          headers: {
+            token: localStorage.getItem('token')
+          }
+        })
+          .then(found => {
+            this.doLogin(true)
+          })
+          .catch(err => console.log(err))
+        // cek token valid atau kagak kata bg rama
       } else {
-        this.isLogin = false
+        this.doLogin(false)
         this.user = {}
       }
     }

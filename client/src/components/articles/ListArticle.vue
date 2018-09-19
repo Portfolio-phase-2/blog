@@ -3,6 +3,7 @@
       <div class="card mb-3" v-for="(article, i) in articles" :key="i">
         <div class="card-body">
           <h5><router-link :to="{ name: 'articledetail', params: { id: article._id }}">{{article.title}}</router-link></h5>
+          <small>{{article.owner.name}}</small>
           <hr>
           <div v-html="article.description"></div>
         </div>

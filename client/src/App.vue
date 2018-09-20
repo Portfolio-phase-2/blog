@@ -20,7 +20,10 @@ export default {
   data () {
     return {
       isLogin: false,
-      user: {}
+      user: {
+        _id: ''
+      },
+      message: ''
     }
   },
   methods: {

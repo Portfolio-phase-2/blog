@@ -2,11 +2,11 @@
   <div class="card mb-3">
       <div class="card-body">
           <h3>List Articles</h3>
-          <h5 class="card-title"
+          <h6 class="card-title"
           v-for="(article, i) in articles"
           :key="i">
           <router-link :to="{ name: 'articledetail', params: { id: article._id }}">{{article.title}}</router-link>
-          </h5>
+          </h6>
       </div>
   </div>
 </template>

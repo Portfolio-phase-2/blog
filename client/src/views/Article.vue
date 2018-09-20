@@ -3,10 +3,10 @@
         <div class="col-md-3 col-lg-3">
             <Profile :user="user" v-if="user.name"></Profile>
             <Management :user="user" v-if="user.name"></Management>
-            <Menu></Menu>
+            <Menu :user="user"></Menu>
         </div>
         <div class="col-md-9 col-lg-9">
-            <router-view></router-view>
+            <router-view :user="user"></router-view>
         </div>
     </div>
 </template>

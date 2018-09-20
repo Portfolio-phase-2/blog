@@ -10,8 +10,8 @@
           <li class="nav-item active">
             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">My Articles</a>
+          <li class="nav-item" v-if="user._id">
+            <a class="nav-link" href="#" @click="myArticle">My Articles</a>
           </li>
         </ul>
         <ul class="navbar-nav">
@@ -75,6 +75,7 @@
 
 <script>
 import axios from 'axios'
+import swal from 'sweetalert'
 
 export default {
   name: 'navbar',
@@ -87,6 +88,19 @@ export default {
     }
   },
   methods: {
+    myArticle () {
+      axios({
+        url: `${this.$baseUrl}/articles/mine`,
+        method: 'get',
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+        .then(found => {
+          console.log(found.data)
+        })
+        .catch(err => console.log(err))
+    },
     doRegister () {
       axios({
         url: `${this.$baseUrl}/users/signup`,
@@ -98,7 +112,7 @@ export default {
         }
       })
         .then(found => {
-          // ini kasi alert
+          swal('Good job!', 'Thanks for register', 'success')
         })
         .catch(err => console.log(err))
     },

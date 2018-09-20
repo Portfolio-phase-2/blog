@@ -77,7 +77,7 @@ export default {
         }
       })
         .then(response => {
-          alert('success')
+          // console.log(this.$parent)
         })
     },
     savearticle () {
@@ -94,7 +94,7 @@ export default {
         }
       })
         .then(response => {
-          alert('success add category')
+          // this.$parent.$children[0].getArticle()
         })
         .catch(err => console.log(err))
     },

@@ -20,12 +20,16 @@ export default {
       articles: []
     }
   },
+  mounted () {
+    this.$eventHub.$on('refresharticle', pay => {
+      this.getAllArticle()
+    })
+  },
   created () {
     this.getAllArticle()
   },
   methods: {
     getAllArticle () {
-      console.log('object')
       axios({
         url: `${this.$baseUrl}/articles`,
         method: 'get'

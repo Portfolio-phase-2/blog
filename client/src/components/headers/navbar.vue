@@ -97,7 +97,7 @@ export default {
         }
       })
         .then(found => {
-          console.log(found.data)
+          // console.log(found.data) ini belom selesai
         })
         .catch(err => console.log(err))
     },

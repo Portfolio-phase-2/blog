@@ -94,7 +94,7 @@ export default {
         }
       })
         .then(response => {
-          // this.$parent.$children[0].getArticle()
+          this.$eventHub.$emit('refresharticle', true)
         })
         .catch(err => console.log(err))
     },

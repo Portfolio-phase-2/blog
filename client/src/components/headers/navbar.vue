@@ -97,7 +97,7 @@ export default {
         }
       })
         .then(found => {
-          // console.log(found.data) ini belom selesai
+          this.$eventHub.$emit('myarticle', found.data)
         })
         .catch(err => console.log(err))
     },
@@ -130,8 +130,15 @@ export default {
             let token = found.data.token
             localStorage.setItem('token', token)
             this.$emit('loginin', true)
+            this.email = ''
+            this.password = ''
+            let pay = { status: true, message: 'Success for signin' }
+            this.$eventHub.$emit('notifikasy', pay)
           })
-          .catch(err => console.log(err))
+          .catch(() => {
+            let pay = { status: false, message: 'Failed for signin' }
+            this.$eventHub.$emit('notifikasy', pay)
+          })
       } else {
         alert('Not true')
       }
@@ -139,6 +146,10 @@ export default {
     doLogout () {
       localStorage.removeItem('token')
       this.$emit('loginin', false)
+      this.email = ''
+      this.password = ''
+      let pay = { status: true, message: 'Success for signout' }
+      this.$eventHub.$emit('notifikasy', pay)
     }
   }
 }

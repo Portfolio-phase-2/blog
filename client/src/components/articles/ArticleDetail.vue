@@ -1,7 +1,7 @@
 <template>
     <div class="card mb-3">
         <div class="card-body mb-3">
-            <h4 class="bg-secondary">{{article.title}}</h4>
+            <h4 class="bg-secondary text-white">{{article.title}}</h4>
               <button class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#modalEditArticle" v-if="user._id == article.owner._id" @click="editData(article)">Edit</button>
               <button @click="deleteMyArticle(article._id)" class="btn btn-sm btn-outline-danger ml-1" v-if="user._id == article.owner._id">Delete</button>
               <br />
@@ -11,7 +11,7 @@
               {{article.comments.length}} comments in this article</small>
             <hr />
             <div v-html="article.description" class="mb-3"></div>
-            <h5 class="bg-secondary" v-if="article.comments.length>0">Comments</h5>
+            <h5 class="bg-secondary text-white" v-if="article.comments.length>0">Comments</h5>
             <div class="card mb-3" v-for="com in article.comments" :key="com._id">
               <strong>{{com.owner.name}} said: </strong>
               <blockquote>{{com.comment}}</blockquote>
@@ -75,6 +75,8 @@ export default {
         .then(found => {
           this.$router.push('/')
           this.getArticle()
+          let pay = { status: true, message: 'Success for delete an article' }
+          this.$eventHub.$emit('notifikasy', pay)
         })
         .catch(err => console.log(err))
     },
@@ -102,6 +104,9 @@ export default {
         .then(found => {
           this.getArticle()
           this.comment = ''
+          let pay = { status: true, message: 'Success for add a comment' }
+          this.$eventHub.$emit('notifikasy', pay)
+          this.$eventHub.$emit('refresharticle', true)
         })
         .catch(err => console.log(err))
     },
@@ -115,6 +120,9 @@ export default {
       })
         .then(found => {
           this.getArticle()
+          this.$eventHub.$emit('refresharticle', true)
+          let pay = { status: true, message: 'Success for delete a comment' }
+          this.$eventHub.$emit('notifikasy', pay)
         })
         .catch(err => console.log(err))
     },
@@ -135,7 +143,10 @@ export default {
       })
         .then(found => {
           this.$router.push('/')
+          this.$eventHub.$emit('refresharticle', true)
           this.getArticle()
+          let pay = { status: true, message: 'Success for update an article' }
+          this.$eventHub.$emit('notifikasy', pay)
         })
         .catch(err => console.log(err))
     }

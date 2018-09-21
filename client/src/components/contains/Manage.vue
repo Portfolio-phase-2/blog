@@ -77,7 +77,7 @@ export default {
         }
       })
         .then(response => {
-          // console.log(this.$parent)
+          this.$eventHub.$emit('refresharticle', true)
         })
     },
     savearticle () {

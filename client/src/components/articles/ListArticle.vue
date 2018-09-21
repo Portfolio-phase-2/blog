@@ -26,6 +26,9 @@ export default {
     this.$eventHub.$on('refresharticle', pay => {
       this.getAllArticle()
     })
+    this.$eventHub.$on('myarticle', pay => {
+      this.articles = pay
+    })
   },
   created () {
     this.getAllArticle()

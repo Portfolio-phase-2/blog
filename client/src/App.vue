@@ -2,6 +2,7 @@
   <div id="app">
     <Navbar :status="isLogin" :user="user" @loginin="doLogin"></Navbar>
     <div class="container">
+      <div v-html="message"></div>
       <router-view :user="user"/>
     </div>
   </div>
@@ -16,6 +17,26 @@ export default {
   },
   created () {
     this.checkLogin()
+  },
+  mounted () {
+    this.$eventHub.$on('notifikasy', pay => {
+      console.log(pay)
+      if (pay.status === true) {
+        this.message = `<div class="alert alert-success alert-dismissible fade show" role="alert">
+          ${pay.message}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>`
+      } else {
+        this.message = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+          ${pay.message}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>`
+      }
+    })
   },
   data () {
     return {
